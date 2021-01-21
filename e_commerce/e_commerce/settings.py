@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'main.apps.MainConfig',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -122,5 +123,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = Path(BASE_DIR, "static")
+
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 
 SITE_ID = 1
