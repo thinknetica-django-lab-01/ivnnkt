@@ -125,11 +125,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = Path(BASE_DIR, "static")
+# STATIC_ROOT = Path(BASE_DIR, "static")
+
+STATICFILES_DIRS = [
+BASE_DIR / "static"
+]
 
 # папка для файлов и изображений
 
-MEDIA_URL = '/madia/'
+MEDIA_URL = '/media/'
 
 MEDIA_ROOT = Path(BASE_DIR, "media")
 

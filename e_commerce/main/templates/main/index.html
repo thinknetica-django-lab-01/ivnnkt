@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>E-commerce</title>
-</head>
-<body>
-    <header>
-		<a href="about">About us</a>
-		<a href="contact">Contacts</a>
-	</header>
-    <main>
-        <h4>E-commerce site</h4>
-    </main>
-</body>
-</html>
+{% extends 'main/base.html' %}
+
+{% block title %}
+Е-Магазин
+{% endblock %}
+
+{% block content %}
+    <h1>Добро пожаловать в Е-Магазин</h1>
+    <p class="lead">Место для размещения контента Е-Магазина</p>
+{% endblock %}
