@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'main.apps.MainConfig',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -107,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Europe/Moscow'
 
@@ -122,5 +124,26 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = Path(BASE_DIR, "static")
+
+# папка для файлов и изображений
+
+MEDIA_URL = '/madia/'
+
+MEDIA_ROOT = Path(BASE_DIR, "media")
+
+# настройки для CKEditor
+
+# настройка редактора по-умолчанию
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'toolbar': 'None'
+#     },
+# }
+
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 SITE_ID = 1
