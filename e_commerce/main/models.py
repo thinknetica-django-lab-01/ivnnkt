@@ -8,7 +8,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 class NewFlatpage(models.Model):
     flatpage = models.OneToOneField(FlatPage, on_delete=models.CASCADE)
-    description = RichTextUploadingField(verbose_name='Контент', default='')
+    content = RichTextUploadingField(verbose_name='Контент', default='')
 
     def __str__(self):
         return self.flatpage.title
@@ -16,3 +16,6 @@ class NewFlatpage(models.Model):
     class Meta:
         verbose_name = "Содержание страницы"
         verbose_name_plural = "Содержание страницы"
+
+
+
