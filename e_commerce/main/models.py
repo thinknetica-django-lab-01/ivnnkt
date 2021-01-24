@@ -25,7 +25,6 @@ class Seller(models.Model):
     name = models.CharField(verbose_name="Название", max_length=250)
 
     def __str__(self):
-        return self.name
 
 
 class Category(models.Model):
