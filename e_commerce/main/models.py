@@ -18,4 +18,35 @@ class NewFlatpage(models.Model):
         verbose_name_plural = "Содержание страницы"
 
 
+class Seller(models.Model):
+    '''
+    Продавцы (возможно производители)
+    '''
+    name = models.CharField(verbose_name="Название", max_length=250)
 
+
+class Category(models.Model):
+    '''
+    Категории товаров в магазине
+    '''
+    name = models.CharField(verbose_name="Название", max_length=250)
+    discription = models.TextField(verbose_name="Описание категории")
+
+
+class Tag(models.Model):
+    '''
+    Тэги для поиска товара
+    '''
+    name = models.CharField(verbose_name="#Тэг", max_length=50, blank=True)
+
+
+class Product(models.Model):
+    '''
+    Товар представленный в магазине
+    '''
+    name = models.CharField(verbose_name="Название", max_length=250)
+    discription = models.TextField(verbose_name="Описание товара")
+    price = models.IntegerField(verbose_name="Цена")
+    seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    tag = models.ManyToManyField(Tag)
