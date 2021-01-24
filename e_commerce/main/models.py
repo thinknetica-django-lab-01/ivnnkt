@@ -24,6 +24,9 @@ class Seller(models.Model):
     '''
     name = models.CharField(verbose_name="Название", max_length=250)
 
+    def __str__(self):
+        return self.name
+
 
 class Category(models.Model):
     '''
@@ -32,12 +35,18 @@ class Category(models.Model):
     name = models.CharField(verbose_name="Название", max_length=250)
     discription = models.TextField(verbose_name="Описание категории")
 
+    def __str__(self):
+        return self.name
+
 
 class Tag(models.Model):
     '''
     Тэги для поиска товара
     '''
     name = models.CharField(verbose_name="#Тэг", max_length=50, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Product(models.Model):
@@ -50,3 +59,6 @@ class Product(models.Model):
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     tag = models.ManyToManyField(Tag)
+
+    def __str__(self):
+        return self.name
