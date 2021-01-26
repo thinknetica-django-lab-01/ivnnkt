@@ -26,3 +26,7 @@ class FlatPageNewAdmin(FlatPageAdmin):
 
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, FlatPageNewAdmin)
+admin.site.register(Seller)
+admin.site.register(Category)
+admin.site.register(Tag)
+admin.site.register(Product)
