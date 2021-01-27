@@ -9,4 +9,6 @@ def index(request):
     turn_on_block = True
     return render(request, 'main/index.html', {'prod': prod, 'user': user, 'turn_on_block': turn_on_block })
 
+
+
 # Create your views here.
