@@ -4,7 +4,15 @@
 Е-Магазин
 {% endblock %}
 
+
 {% block content %}
-    <h1>Добро пожаловать в Е-Магазин</h1>
-    <p class="lead">Место для размещения контента Е-Магазина</p>
+    <h1>{{ user.username }}, добро пожаловать в Е-Магазин</h1>
+<!--    <p class="lead">Место для размещения контента Е-Магазина</p>-->
+    {% for el in prod %}
+        <h1 class="lead">{{ el.name }}</h1>
+        {% if turn_on_block %}
+        <p>Цена {{ el.price }} рублей</p>
+        {% else %}
+        {% endif %}
+    {% endfor %}
 {% endblock %}
