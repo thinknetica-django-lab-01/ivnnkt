@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+{% load simple_tags %}
 
 {% block title %}
 Е-Магазин
@@ -8,6 +9,8 @@
 {% block content %}
     <h1>Добро пожаловать в Е-Магазин</h1>
 <!--    <p class="lead">Место для размещения контента Е-Магазина</p>-->
+    {% current_time " %I:%M %p" as the_time %}
+        <p>Время на сервере {{ the_time }}.</p>
     {% for el in prod %}
         <h1 class="lead">{{ el.name }}</h1>
         {% if turn_on_block %}
@@ -15,4 +18,5 @@
         {% else %}
         {% endif %}
     {% endfor %}
+    <p>{{ for_revers|revers_string }}</p>
 {% endblock %}
