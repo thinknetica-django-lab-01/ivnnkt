@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from .models import Product
+from django.views import generic
 
 
 def index(request):
@@ -18,6 +19,11 @@ def index(request):
             'for_revers': 'Hello world!'
         }
     )
+
+
+class ProductListView(generic.ListView):
+    model = Product
+
 
 
 
