@@ -1,5 +1,4 @@
 {% extends 'main/base.html' %}
-{% load simple_tags %}
 
 {% block content %}
     <h1>Список товаров</h1>
@@ -8,7 +7,7 @@
 
       {% for product in product_list %}
       <li>
-        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a> ({{ product.price }})
+        <a href="{{ product.pk }}">{{ product.name }}</a> ({{ product.price }})
       </li>
       {% endfor %}
 

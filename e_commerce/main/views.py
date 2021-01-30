@@ -25,6 +25,8 @@ class ProductListView(generic.ListView):
     model = Product
 
 
+class ProductDetailView(generic.DetailView):
+    model = Product
 
 
 # Create your views here.

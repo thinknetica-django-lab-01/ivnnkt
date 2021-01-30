@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+  <h1>{{ product.name }}</h1>
+
+  <p><strong>Описание</strong> {{ product.discription }}</p>
+  <p><strong>Продавец</strong> {{ product.seller }}</p>
+  <p><strong>Категория товара</strong> {{ product.category }}</p>
+  <p><strong>В наличии:</strong> {{ product.in_stock }}</p>
+  <p><strong>Цена</strong> {{ product.price }} у.е.</p>
+
+{% endblock %}
