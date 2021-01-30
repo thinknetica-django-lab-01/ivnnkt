@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from .models import Product
+from django.views import generic
 
 
 def index(request):
@@ -19,6 +20,13 @@ def index(request):
         }
     )
 
+
+class ProductListView(generic.ListView):
+    model = Product
+
+
+class ProductDetailView(generic.DetailView):
+    model = Product
 
 
 # Create your views here.
