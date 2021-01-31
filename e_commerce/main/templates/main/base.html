@@ -34,6 +34,20 @@
       <div class="starter-template">
           {% block content %}
           {% endblock %}
+
+          {% block pagination %}
+              {% if is_paginated %}
+                  <div class="pagination">
+                        <ul class="pagination pagination-centered">
+
+                            {% for i in paginator.page_range %}
+                                <li {% if page_obj.number == i %} class="active" {% endif %}><a href="?page={{i}}">{{i}}, </a></li>
+                            {% endfor %}
+
+                        </ul>
+                  </div>
+              {% endif %}
+          {% endblock %}
       </div>
 
     </main>
