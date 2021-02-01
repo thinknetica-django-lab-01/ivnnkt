@@ -8,6 +8,7 @@
   <p><strong>Категория товара</strong> {{ product.category }}</p>
   <p><strong>В наличии:</strong> {{ product.in_stock }}</p>
   <p><strong>Цена</strong> {{ product.price }} у.е.</p>
+  <p><strong>Тэги</strong> {% for tags in product.tag.all %} {{ tags.name }} {% endfor %} </p>
 
 {% endblock %}
 

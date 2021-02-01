@@ -41,7 +41,9 @@
                                     <ul class="pagination pagination-centered">
 
                                         {% for i in paginator.page_range %}
-                                            <li {% if page_obj.number == i %} class="active" {% endif %}><a href="?page={{i}}">{{i}}, </a></li>
+                                            <li>
+                                                <a href="?{{ tags }}page={{i}}">{{i}},</a>
+                                            </li>
                                         {% endfor %}
 
                                     </ul>
