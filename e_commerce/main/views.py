@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from .models import Product
 from django.views import generic
+from django.views.generic.edit import UpdateView
+from .forms import ProfileForm
 
 
 def index(request):
@@ -47,3 +49,10 @@ class ProductListView(generic.ListView):
 class ProductDetailView(generic.DetailView):
     '''страничка товара'''
     model = Product
+
+
+class ProfileUpdate(UpdateView):
+    '''Форма редактирования пользователя'''
+    model = User
+    form_class = ProfileForm
+    template_name = 'main/profile_form.html'
