@@ -1,6 +1,6 @@
 from django.forms import ModelForm, IntegerField
 from django.core.exceptions import ValidationError
-from .models import User
+from .models import User, Product
 
 
 class ProfileForm(ModelForm):
@@ -20,3 +20,17 @@ class ProfileForm(ModelForm):
             raise ValidationError('Вам должно быть больше чем 18 лет')
 
         return data
+
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = (
+            'name',
+            'discription',
+            'category',
+            'price',
+            'in_stock',
+            'seller',
+            'tag',
+        )

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .models import Product
 from django.views import generic
 from django.views.generic.edit import UpdateView
-from .forms import ProfileForm
+from .forms import ProfileForm, ProductForm
 
 
 def index(request):
@@ -56,3 +56,9 @@ class ProfileUpdate(UpdateView):
     model = User
     form_class = ProfileForm
     template_name = 'main/profile_form.html'
+
+
+class ProductCreateView(generic.CreateView):
+    '''станица добавления товара'''
+    model = Product
+    form_class = ProductForm
