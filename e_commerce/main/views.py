@@ -4,6 +4,7 @@ from .models import Product
 from django.views import generic
 from django.views.generic.edit import UpdateView
 from .forms import ProfileForm, ProductForm
+from django.urls import reverse_lazy
 
 
 def index(request):
@@ -62,3 +63,11 @@ class ProductCreateView(generic.CreateView):
     '''станица добавления товара'''
     model = Product
     form_class = ProductForm
+
+
+class ProductUpdate(generic.UpdateView):
+    '''станица добавления товара'''
+    model = Product
+    form_class = ProductForm
+    template_name_suffix = '_edit'
+    success_url = reverse_lazy('goods')
