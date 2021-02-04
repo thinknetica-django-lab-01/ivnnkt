@@ -1,16 +1,20 @@
-from django.forms import ModelForm, IntegerField
+from django.forms import ModelForm, CharField, EmailField, IntegerField
 from django.core.exceptions import ValidationError
-from .models import User
+from .models import Profile, User
 
 
 class ProfileForm(ModelForm):
-    age = IntegerField(
-        label='Возраст',
-    )
+
+    first_name = CharField(max_length=150,)
+    last_name = CharField(max_length=150,)
+    email = EmailField()
+    # age = IntegerField(label='Возраст')
+
 
     class Meta:
-        model = User
-        fields = ('first_name', 'last_name', 'email', 'age')
+        model = Profile
+        fields = ('first_name', 'last_name', 'email', 'age',)
+        exclude = ['user']
 
     def clean_age(self):
         data = self.cleaned_data['age']
@@ -20,3 +24,11 @@ class ProfileForm(ModelForm):
             raise ValidationError('Вам должно быть больше чем 18 лет')
 
         return data
+
+    def save(self, *args, **kwargs):
+        super(ProfileForm, self).save(*args, **kwargs)
+        self.instance.username.first_name = self.cleaned_data.get('first_name')
+        self.instance.username.last_name = self.cleaned_data.get('last_name')
+        self.instance.username.email = self.cleaned_data.get('email')
+        self.instance.username.save()
+
