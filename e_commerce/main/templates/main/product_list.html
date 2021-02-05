@@ -2,14 +2,23 @@
 
 {% block content %}
     <h1>Список товаров</h1>
-
     <ul>
-
       {% for product in product_list %}
       <li>
         <a href="{{ product.pk }}">{{ product.name }}</a> ({{ product.price }})
       </li>
       {% endfor %}
-
     </ul>
+{% endblock %}
+
+{% block tag %}
+{% for product in product_list %}
+    {% for tags in product.tag.all %}
+      <li class="nav-item">
+        <a class="nav-link" href="?tag={{ tags.name }}">
+            {{ tags.name }}
+        </a>
+      </li>
+    {% endfor %}
+{% endfor %}
 {% endblock %}

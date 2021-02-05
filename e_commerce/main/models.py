@@ -1,9 +1,7 @@
 from django.db import models
-
-# Create your models here.
-
 from django.contrib.flatpages.models import FlatPage
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.contrib.auth.models import User
 
 
 class NewFlatpage(models.Model):
@@ -63,3 +61,15 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Profile(models.Model):
+    '''
+    Профиль пользователя
+    '''
+    username = models.OneToOneField(User, on_delete=models.CASCADE, primary_key = True)
+    date_of_birth = models.DateField(blank=True, null=True)
+    age = models.IntegerField(verbose_name="Возраст", blank=True, null=True)
+
+    def __str__(self):
+        return self.username.username
