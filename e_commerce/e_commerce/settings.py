@@ -60,7 +60,7 @@ ROOT_URLCONF = 'e_commerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -149,5 +149,8 @@ MEDIA_ROOT = Path(BASE_DIR, "media")
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+# на эту странцу перенаправляет после того как залогинился
+LOGIN_REDIRECT_URL = '/'
 
 SITE_ID = 1
