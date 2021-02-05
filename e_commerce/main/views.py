@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from .models import Product, Profile
 from django.views import generic
 from django.views.generic.edit import UpdateView
-from .forms import ProfileForm
+from .forms import ProfileForm, ProductForm
+from django.urls import reverse_lazy
 
 
 def index(request):
@@ -56,3 +57,17 @@ class ProfileUpdate(UpdateView):
     model = Profile
     form_class = ProfileForm
     template_name = 'main/profile_form.html'
+
+
+class ProductCreateView(generic.CreateView):
+    '''станица добавления товара'''
+    model = Product
+    form_class = ProductForm
+
+
+class ProductUpdate(generic.UpdateView):
+    '''станица добавления товара'''
+    model = Product
+    form_class = ProductForm
+    template_name_suffix = '_edit'
+    success_url = reverse_lazy('goods')
