@@ -10,5 +10,7 @@
   <p><strong>Цена</strong> {{ product.price }} у.е.</p>
   <p><strong>Тэги</strong> {% for tags in product.tag.all %} {{ tags.name }} {% endfor %} </p>
 
+
+  <a class="nav-link" href="{% url 'edit_product' pk=product.id %}">Редактировать продукт</a>
 {% endblock %}
 

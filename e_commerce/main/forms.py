@@ -1,6 +1,6 @@
 from django.forms import ModelForm, CharField, EmailField
 from django.core.exceptions import ValidationError
-from .models import Profile
+from .models import Profile, User, Product
 
 
 class ProfileForm(ModelForm):
@@ -8,7 +8,6 @@ class ProfileForm(ModelForm):
     first_name = CharField(max_length=150,)
     last_name = CharField(max_length=150,)
     email = EmailField()
-
 
 
     class Meta:
@@ -24,7 +23,7 @@ class ProfileForm(ModelForm):
             raise ValidationError('Вам должно быть больше чем 18 лет')
 
         return data
-
+      
     def save(self, *args, **kwargs):
         super(ProfileForm, self).save(*args, **kwargs)
         self.instance.username.first_name = self.cleaned_data.get('first_name')
@@ -32,3 +31,17 @@ class ProfileForm(ModelForm):
         self.instance.username.email = self.cleaned_data.get('email')
         self.instance.username.save()
 
+
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = (
+            'name',
+            'discription',
+            'category',
+            'price',
+            'in_stock',
+            'seller',
+            'tag',
+        )
