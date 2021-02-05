@@ -3,6 +3,7 @@ from .models import Product, Profile
 from django.views import generic
 from django.views.generic.edit import UpdateView
 from .forms import ProfileForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def index(request):
@@ -48,8 +49,12 @@ class ProductDetailView(generic.DetailView):
     model = Product
 
 
-class ProfileUpdate(UpdateView):
+
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
     '''Форма редактирования пользователя'''
     model = Profile
     form_class = ProfileForm
     template_name = 'main/profile_form.html'
+
+
+
