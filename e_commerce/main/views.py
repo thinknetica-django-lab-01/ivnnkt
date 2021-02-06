@@ -1,15 +1,15 @@
 from django.shortcuts import render
-from django.contrib.auth.models import User
 from .models import Product, Profile
 from django.views import generic
 from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import ProfileForm, ProductForm
 from django.urls import reverse_lazy
 
 
+
 def index(request):
     prod = Product.objects.all()
-    user = User.objects.filter(logentry=True)
     turn_on_block = True
 
     return render(
@@ -17,7 +17,6 @@ def index(request):
         'main/index.html',
         {
             'prod': prod,
-            'user': user,
             'turn_on_block': turn_on_block,
             'for_revers': 'Hello world!'
         }
@@ -52,7 +51,8 @@ class ProductDetailView(generic.DetailView):
     model = Product
 
 
-class ProfileUpdate(UpdateView):
+
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
     '''Форма редактирования пользователя'''
     model = Profile
     form_class = ProfileForm
@@ -71,3 +71,4 @@ class ProductUpdate(generic.UpdateView):
     form_class = ProductForm
     template_name_suffix = '_edit'
     success_url = reverse_lazy('goods')
+
