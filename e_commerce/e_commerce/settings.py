@@ -163,7 +163,12 @@ CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
-# на эту странцу перенаправляет после того как залогинился
+# перенаправление после :
+# авторизации
 LOGIN_REDIRECT_URL = '/'
+# выхода
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+# регистрации
+ACCOUNT_SIGNUP_REDIRECT_URL = 'settings.LOGIN_REDIRECT_URL'
 
 SITE_ID = 1
