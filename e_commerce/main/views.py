@@ -57,7 +57,11 @@ class ProfileUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'main/profile_form.html'
 
 
-class ProductCreateView(UserPassesTestMixin, generic.CreateView):
+class ProductCreateView(
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    generic.CreateView
+):
     '''станица добавления товара'''
     model = Product
     form_class = ProductForm
@@ -65,8 +69,16 @@ class ProductCreateView(UserPassesTestMixin, generic.CreateView):
     def test_func(self):
         return self.request.user.groups.filter(name='sellers')
 
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
 
-class ProductUpdate(UserPassesTestMixin, generic.UpdateView):
+
+class ProductUpdate(
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    generic.UpdateView
+):
     '''станица добавления товара'''
     model = Product
     form_class = ProductForm
