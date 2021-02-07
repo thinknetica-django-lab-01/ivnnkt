@@ -79,11 +79,12 @@ class ProductUpdate(
     UserPassesTestMixin,
     generic.UpdateView
 ):
-    '''станица добавления товара'''
+    '''станица редактирования товара'''
     model = Product
     form_class = ProductForm
     template_name_suffix = '_edit'
     success_url = reverse_lazy('goods')
 
-    def test_func(self):
-        return self.request.user.groups.filter(name='sellers')
+    def test_func(self, *args, **kwargs):
+        obj = super(UpdateView, self).get_object()
+        return self.request.user == obj.owner
