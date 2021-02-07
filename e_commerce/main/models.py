@@ -4,12 +4,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        instance.groups.add(Group.objects.get(name='common users'))
+from django.core.mail import EmailMultiAlternatives
 
 
 class NewFlatpage(models.Model):
@@ -82,3 +77,22 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.username.username
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        instance.groups.add(Group.objects.get(name='common users'))
+
+
+def send_msg_to_new_user(sender, instance, created, **kwargs):
+    email = User.email
+    if created:
+        subject, from_email, to = 'Привет', 'from@example.com', email
+        text_content = 'This is an important message.'
+        html_content = '<p>This is an <strong>important</strong> message.</p>'
+        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
+
+post_save.connect(send_msg_to_new_user, sender=User)
