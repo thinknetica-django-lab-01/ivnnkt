@@ -66,7 +66,7 @@ class ProductCreateView(UserPassesTestMixin, generic.CreateView):
         return self.request.user.groups.filter(name='sellers')
 
 
-class ProductUpdate(generic.UpdateView):
+class ProductUpdate(UserPassesTestMixin, generic.UpdateView):
     '''станица добавления товара'''
     model = Product
     form_class = ProductForm
