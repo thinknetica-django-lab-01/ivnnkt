@@ -2,10 +2,9 @@ from django.shortcuts import render
 from .models import Product, Profile
 from django.views import generic
 from django.views.generic.edit import UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import ProfileForm, ProductForm
 from django.urls import reverse_lazy
-
 
 
 def index(request):
@@ -51,7 +50,6 @@ class ProductDetailView(generic.DetailView):
     model = Product
 
 
-
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
     '''Форма редактирования пользователя'''
     model = Profile
@@ -59,10 +57,13 @@ class ProfileUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'main/profile_form.html'
 
 
-class ProductCreateView(generic.CreateView):
+class ProductCreateView(UserPassesTestMixin, generic.CreateView):
     '''станица добавления товара'''
     model = Product
     form_class = ProductForm
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='sellers')
 
 
 class ProductUpdate(generic.UpdateView):
@@ -72,3 +73,5 @@ class ProductUpdate(generic.UpdateView):
     template_name_suffix = '_edit'
     success_url = reverse_lazy('goods')
 
+    def test_func(self):
+        return self.request.user.groups.filter(name='sellers')
