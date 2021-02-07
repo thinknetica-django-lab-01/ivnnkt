@@ -5,6 +5,7 @@ from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 
 class NewFlatpage(models.Model):
@@ -86,12 +87,17 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 def send_msg_to_new_user(sender, instance, created, **kwargs):
-    email = User.email
     if created:
-        subject, from_email, to = 'Привет', 'from@example.com', email
-        text_content = 'This is an important message.'
-        html_content = '<p>This is an <strong>important</strong> message.</p>'
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+        email = User.email
+        data = {
+            'name': User.username,
+        }
+        html_content = render_to_string('email_temlates/welcome_messege.html', data)
+        msg = EmailMultiAlternatives(
+            subject='Welcome messege',
+            from_email='from@example.com',
+            to = [email]
+        )
         msg.attach_alternative(html_content, "text/html")
         msg.send()
 
