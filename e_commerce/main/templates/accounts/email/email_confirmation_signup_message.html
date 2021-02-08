@@ -1,0 +1,12 @@
+{% load i18n %}
+{% load account %}
+{% autoescape off %}
+<h1>{% blocktrans with site_name=current_site.name %}Привет это {{ site_name }}!{% endblocktrans %}</h1>
+
+<p>{% autoescape off %}{% user_display user as user_display %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}You're receiving this e-mail because user {{ user_display }} has given your e-mail address to register an account on {{ site_domain }}.
+
+Для подтверждения электронной почты перейдите по ссылке {{ activate_url }}{% endblocktrans %}{% endautoescape %}</p>
+
+<h3>{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}Спасибо, что выбрали {{ site_name }}!<br>
+    {{ site_domain }}{% endblocktrans %}</h3>
+{% endautoescape %}
