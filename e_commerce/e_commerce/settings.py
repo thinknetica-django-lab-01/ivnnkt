@@ -79,7 +79,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'e_commerce.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -90,7 +89,6 @@ DATABASES = {
     }
 }
 
-
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -98,7 +96,6 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -132,6 +129,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# настройки для отправки Email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -151,19 +151,16 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = Path(BASE_DIR, "media")
 
 # настройки для CKEditor
-
-# настройка редактора по-умолчанию
-# CKEDITOR_CONFIGS = {
-#     'default': {
-#         'toolbar': 'None'
-#     },
-# }
-
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
-# на эту странцу перенаправляет после того как залогинился
+# перенаправление после :
+# авторизации
 LOGIN_REDIRECT_URL = '/'
+# выхода
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+# регистрации
+ACCOUNT_SIGNUP_REDIRECT_URL = '/'
 
 SITE_ID = 1
