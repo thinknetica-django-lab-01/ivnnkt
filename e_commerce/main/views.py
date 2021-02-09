@@ -25,6 +25,7 @@ def index(request):
 class ProductListView(generic.ListView):
     '''полный список товаров'''
     model = Product
+    form_class = ProfileForm
     paginate_by = 2
 
     def get_queryset(self):

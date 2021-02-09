@@ -1,6 +1,6 @@
 from django.forms import ModelForm, CharField, EmailField
 from django.core.exceptions import ValidationError
-from .models import Profile, User, Product
+from .models import Profile, Product, Subscriber
 
 
 class ProfileForm(ModelForm):
@@ -45,3 +45,9 @@ class ProductForm(ModelForm):
             'seller',
             'tag',
         )
+
+
+class SubscribForm(ModelForm):
+    class Meta:
+        model = Subscriber
+        exclude = ['user']
