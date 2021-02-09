@@ -50,4 +50,4 @@ class ProductForm(ModelForm):
 class SubscribForm(ModelForm):
     class Meta:
         model = Subscriber
-        exclude = ['user']
+        fields = ('username',)

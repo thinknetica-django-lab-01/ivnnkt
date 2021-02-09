@@ -112,3 +112,19 @@ class Subscriber(models.Model):
 
     def __str__(self):
         return self.username.username
+
+
+def send_new_product(sender, instance, created, **kwargs):
+    if created:
+        sub_list = Subscriber.objects.all()
+        email = [user.username.email for user in sub_list]
+        html_content = render_to_string('email_temlates/new.html')
+        msg = EmailMultiAlternatives(
+            subject='New in the site',
+            from_email='from@example.com',
+            to = email
+        )
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
+
+post_save.connect(send_new_product, sender=Product)

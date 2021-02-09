@@ -3,7 +3,7 @@ from .models import Product, Profile
 from django.views import generic
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import ProfileForm, ProductForm
+from .forms import ProfileForm, ProductForm, SubscribForm
 from django.urls import reverse_lazy
 
 
@@ -25,7 +25,8 @@ def index(request):
 class ProductListView(generic.ListView):
     '''полный список товаров'''
     model = Product
-    form_class = ProfileForm
+    form_class = SubscribForm
+    success_url = '/goods'
     paginate_by = 2
 
     def get_queryset(self):

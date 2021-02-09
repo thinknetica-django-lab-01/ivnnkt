@@ -10,7 +10,8 @@
       {% endfor %}
     </ul>
 
-    <form method="post">{% csrf_token %}
+    <form method="post">
+        {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Подписаться на новинки">
     </form>
