@@ -9,7 +9,6 @@ class ProfileForm(ModelForm):
     last_name = CharField(max_length=150,)
     email = EmailField()
 
-
     class Meta:
         model = Profile
         fields = ('first_name', 'last_name', 'email', 'age',)
@@ -30,7 +29,6 @@ class ProfileForm(ModelForm):
         self.instance.username.last_name = self.cleaned_data.get('last_name')
         self.instance.username.email = self.cleaned_data.get('email')
         self.instance.username.save()
-
 
 
 class ProductForm(ModelForm):

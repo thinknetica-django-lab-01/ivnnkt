@@ -72,7 +72,7 @@ class Profile(models.Model):
     '''
     Профиль пользователя
     '''
-    username = models.OneToOneField(User, on_delete=models.CASCADE, primary_key = True)
+    username = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     date_of_birth = models.DateField(blank=True, null=True)
     age = models.IntegerField(verbose_name="Возраст", blank=True, null=True)
 

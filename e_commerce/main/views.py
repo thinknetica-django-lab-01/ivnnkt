@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Product, Profile
+from .models import Product, Profile, Subscriber
 from django.views import generic
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -45,6 +45,12 @@ class ProductListView(generic.ListView):
             return context
         else:
             return context
+
+    def new_subscribe(self, request):
+        if request.method == "POST":
+            subscr = Subscriber()
+            subscr.username = self.request.GET.get('user')
+            subscr.save()
 
 
 class ProductDetailView(generic.DetailView):
