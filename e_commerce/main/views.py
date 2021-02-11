@@ -5,6 +5,7 @@ from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import ProfileForm, ProductForm, SubscribForm
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 
 
 def index(request):
@@ -46,11 +47,13 @@ class ProductListView(generic.ListView):
         else:
             return context
 
-    def new_subscribe(self, request):
+    def new_subscribe(request):
         if request.method == "POST":
+            print ("Метод сработал")
             subscr = Subscriber()
-            subscr.username = self.request.GET.get('user')
+            subscr.username = request.POST.get('username')
             subscr.save()
+        return HttpResponseRedirect("/")
 
 
 class ProductDetailView(generic.DetailView):
