@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 import datetime
+from apscheduler.schedulers.background import BackgroundScheduler
 
 
 class NewFlatpage(models.Model):
@@ -148,3 +149,9 @@ def week_new_product(sender, instance, created, **kwargs):
         )
         msg.attach_alternative(html_content, "text/html")
         msg.send()
+
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(week_new_product, 'interval', day_of_week=4)
+scheduler.start()
+
