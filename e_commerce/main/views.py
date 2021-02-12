@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from .models import Product, Profile
+from .models import Product, Profile, Subscriber, User
 from django.views import generic
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import ProfileForm, ProductForm
+from .forms import ProfileForm, ProductForm, SubscribForm
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 
 
 def index(request):
@@ -25,6 +26,8 @@ def index(request):
 class ProductListView(generic.ListView):
     '''полный список товаров'''
     model = Product
+    form_class = SubscribForm
+    success_url = '/goods'
     paginate_by = 2
 
     def get_queryset(self):
@@ -43,6 +46,13 @@ class ProductListView(generic.ListView):
             return context
         else:
             return context
+
+    def post(self, request, *args, **kwargs):
+        if not Subscriber.objects.filter(username=request.user):
+            subscr = Subscriber()
+            subscr.username = request.user
+            subscr.save()
+        return HttpResponseRedirect('/')
 
 
 class ProductDetailView(generic.DetailView):

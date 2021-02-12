@@ -1,6 +1,6 @@
 from django.forms import ModelForm, CharField, EmailField
 from django.core.exceptions import ValidationError
-from .models import Profile, User, Product
+from .models import Profile, Product, Subscriber
 
 
 class ProfileForm(ModelForm):
@@ -8,7 +8,6 @@ class ProfileForm(ModelForm):
     first_name = CharField(max_length=150,)
     last_name = CharField(max_length=150,)
     email = EmailField()
-
 
     class Meta:
         model = Profile
@@ -32,7 +31,6 @@ class ProfileForm(ModelForm):
         self.instance.username.save()
 
 
-
 class ProductForm(ModelForm):
     class Meta:
         model = Product
@@ -45,3 +43,9 @@ class ProductForm(ModelForm):
             'seller',
             'tag',
         )
+
+
+class SubscribForm(ModelForm):
+    class Meta:
+        model = Subscriber
+        fields = ('username',)
