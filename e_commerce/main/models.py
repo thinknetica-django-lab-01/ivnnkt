@@ -151,7 +151,7 @@ def week_new_product(sender, instance, created, **kwargs):
         msg.send()
 
 
-scheduler = BackgroundScheduler()
-scheduler.add_job(week_new_product, 'interval', day_of_week=4)
-scheduler.start()
+# scheduler = BackgroundScheduler()
+# scheduler.add_job(week_new_product, 'interval', day=7)
+# scheduler.start()
 
