@@ -6,8 +6,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-import datetime
-from apscheduler.schedulers.background import BackgroundScheduler
+# import datetime
+# from apscheduler.schedulers.background import BackgroundScheduler
 
 
 class NewFlatpage(models.Model):
@@ -133,22 +133,22 @@ class Subscriber(models.Model):
 # post_save.connect(send_new_product, sender=Product)
 
 
-def week_new_product(sender, instance, created, **kwargs):
-        sub_list = Subscriber.objects.all()
-        email = [user.username.email for user in sub_list]
-        week_date = datetime.date.today() - datetime.timedelta(days=7)
-        product_list = Product.objects.filter(date__gte=week_date)
-        html_content = render_to_string(
-            'email_temlates/week_new.html',
-            {'product_list': product_list}
-        )
-        msg = EmailMultiAlternatives(
-            subject='New in the site',
-            from_email='from@example.com',
-            to = email
-        )
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
+# def week_new_product(sender, instance, created, **kwargs):
+#         sub_list = Subscriber.objects.all()
+#         email = [user.username.email for user in sub_list]
+#         week_date = datetime.date.today() - datetime.timedelta(days=7)
+#         product_list = Product.objects.filter(date__gte=week_date)
+#         html_content = render_to_string(
+#             'email_temlates/week_new.html',
+#             {'product_list': product_list}
+#         )
+#         msg = EmailMultiAlternatives(
+#             subject='New in the site',
+#             from_email='from@example.com',
+#             to = email
+#         )
+#         msg.attach_alternative(html_content, "text/html")
+#         msg.send()
 
 
 # scheduler = BackgroundScheduler()
