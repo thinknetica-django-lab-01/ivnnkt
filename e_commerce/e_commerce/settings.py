@@ -160,6 +160,7 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 # регистрации
 ACCOUNT_SIGNUP_REDIRECT_URL = '/'
 
+# настройки кеша для редис были добавленны при устаноке и настройке redis
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
