@@ -11,6 +11,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.autodiscover_tasks()
 
+# реализовал в 7.3 выполнение таск по расписанию
 app.conf.beat_schedule = {
     'send-new-products-every-week': {
         'task': 'main.tasks.send_mailing',
