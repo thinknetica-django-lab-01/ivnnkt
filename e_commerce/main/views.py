@@ -57,7 +57,7 @@ class ProductListView(generic.ListView):
         return HttpResponseRedirect('/')
 
 
-@method_decorator(cache_page(60 * 5), name='dispatch')
+# @method_decorator(cache_page(60 * 5), name='dispatch')
 class ProductDetailView(generic.DetailView):
     '''страничка товара'''
     model = Product

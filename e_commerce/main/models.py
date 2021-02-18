@@ -66,6 +66,7 @@ class Product(models.Model):
     tag = models.ManyToManyField(Tag)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
+    counter = models.IntegerField(verbose_name="Количество просмотров", default=0)
 
     def __str__(self):
         return self.name

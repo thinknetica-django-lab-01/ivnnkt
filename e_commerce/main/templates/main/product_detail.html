@@ -9,6 +9,7 @@
   <p><strong>В наличии:</strong> {{ product.in_stock }}</p>
   <p><strong>Цена</strong> {{ product.price }} у.е.</p>
   <p><strong>Тэги</strong> {% for tags in product.tag.all %} {{ tags.name }} {% endfor %} </p>
+  <p><strong>Количество просмотров</strong> {{ product.counter }} </p>
 
   <a class="nav-link" href="{% url 'edit_product' pk=product.id %}">Редактировать продукт</a>
 
