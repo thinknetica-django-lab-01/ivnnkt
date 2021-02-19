@@ -6,6 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import ProfileForm, ProductForm, SubscribForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 
 def index(request):
@@ -55,6 +57,7 @@ class ProductListView(generic.ListView):
         return HttpResponseRedirect('/')
 
 
+@method_decorator(cache_page(60 * 5), name='dispatch')
 class ProductDetailView(generic.DetailView):
     '''страничка товара'''
     model = Product
