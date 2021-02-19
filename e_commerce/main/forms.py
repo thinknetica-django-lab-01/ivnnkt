@@ -42,6 +42,7 @@ class ProductForm(ModelForm):
             'in_stock',
             'seller',
             'tag',
+            'counter',
         )
 
 

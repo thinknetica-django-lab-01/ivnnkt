@@ -25,6 +25,7 @@ def index(request):
     )
 
 
+# @method_decorator(cache_page(60 * 5), name='dispatch')
 class ProductListView(generic.ListView):
     '''полный список товаров'''
     model = Product
@@ -57,10 +58,17 @@ class ProductListView(generic.ListView):
         return HttpResponseRedirect('/')
 
 
-@method_decorator(cache_page(60 * 5), name='dispatch')
+
 class ProductDetailView(generic.DetailView):
     '''страничка товара'''
     model = Product
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.counter += 1
+        self.object.save()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
 
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
