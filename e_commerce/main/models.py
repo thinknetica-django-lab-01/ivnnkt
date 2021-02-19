@@ -109,9 +109,9 @@ post_save.connect(send_msg_to_new_user, sender=User)
 
 
 class Subscriber(models.Model):
-    '''
+    """
     Подписка на новинки
-    '''
+    """
     username = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
