@@ -1,17 +1,23 @@
 from django.test import TestCase, RequestFactory
 from .models import Product, Seller, Tag, Category
 from django.contrib.auth.models import User, Group
-from .views import ProductListView, ProductDetailView
+from .views import ProductListView, ProductDetailView, ProductCreateView
 
 
-class ProductDetailViewTest(TestCase):
+class ProductViewTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
         self.group = Group.objects.create(name='common users')
+        self.seller_group = Group.objects.create(name='sellers')
         self.user = User.objects.create(
             username='User',
             email='user@mail.net',
+            password='12345',
+        )
+        self.seller_user = User.objects.create(
+            username='Test_seller',
+            email='seller@mail.net',
             password='12345',
         )
         self.seller = Seller.objects.create(name='test_seller')
@@ -27,7 +33,7 @@ class ProductDetailViewTest(TestCase):
             in_stock=1,
             category=self.category,
             seller=self.seller,
-            owner=self.user,
+            owner=self.seller_user,
             )
 
     def test_view_uses_correct_template(self):
@@ -45,8 +51,21 @@ class ProductDetailViewTest(TestCase):
         response = ProductListView.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
-    def test_detail_view(self):
+    def test_product_detail_view(self):
         request = self.factory.get('/goods/<int:pk>/')
         response = ProductDetailView.as_view()(request, pk=1)
         self.assertEqual(response.status_code, 200)
 
+    def test_product_create_view(self):
+        request = self.factory.get('goods/add/')
+        request.user = self.seller_user
+        request.user.groups.add(self.seller_group)
+        response = ProductCreateView.as_view()(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_product_update_view(self):
+        request = self.factory.get('goods/edit/<int:pk>/')
+        request.user = self.seller_user
+        request.user.groups.add(self.seller_group)
+        response = ProductCreateView.as_view()(request)
+        self.assertEqual(response.status_code, 200)
