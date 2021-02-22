@@ -11,6 +11,9 @@ from django.template.loader import render_to_string
 
 
 class NewFlatpage(models.Model):
+    """
+    создание плоских страниц из админки
+    """
     flatpage = models.OneToOneField(FlatPage, on_delete=models.CASCADE)
     content = RichTextUploadingField(verbose_name='Контент', default='')
 
@@ -24,7 +27,12 @@ class NewFlatpage(models.Model):
 
 class Seller(models.Model):
     """
-    Продавцы (возможно производители)
+    ================
+    Модель Продавец.
+    ================
+    Название магазина прдоставляющего товар
+
+    :Название: поле CharField, максимальной длинной 250 символов
     """
     name = models.CharField(verbose_name="Название", max_length=250)
 
@@ -34,7 +42,11 @@ class Seller(models.Model):
 
 class Category(models.Model):
     """
-    Категории товаров в магазине
+    Модель Категории товаров. Например Элетроника, спорттовары,
+    товары для дома и т.д.
+
+    :Название: поле CharField, максимальной длинной 250 символов
+    :Описание: поле TextField
     """
     name = models.CharField(verbose_name="Название", max_length=250)
     discription = models.TextField(verbose_name="Описание категории")
@@ -45,7 +57,13 @@ class Category(models.Model):
 
 class Tag(models.Model):
     """
-    Тэги для поиска товара
+    ===========
+    Модель Тэг.
+    ===========
+    Тэги для удобного поиска товаров
+
+    :Название: поле CharField, максимальной длинной 50 символов,
+    может быть не заполнено
     """
     name = models.CharField(verbose_name="#Тэг", max_length=50, blank=True)
 
@@ -55,7 +73,26 @@ class Tag(models.Model):
 
 class Product(models.Model):
     """
-    Товар представленный в магазине
+    =============
+    Модель Товар.
+    =============
+    Товары представленные в магазине
+
+    :Название: поле CharField, максимальной длинной 250 символов
+    :Описание: поле TextField, содержит описание товара
+    :Цена: поле IntegerField
+    :Наличие на складе: поле IntegerField, не может быть пустым
+    если товара нет в наличии ставим 0
+    :Продавец: используется модель Продавец, связь один ко мнгим
+    :Категория: Используется модель Категории товаров,
+    связь связь один ко многим
+    :Тэг: используется модель Тэг, связ многие ко многим
+    :Владелец: Используется модель Пользователя, владелец привязыватся к
+    товару атоматически приего создании, только владелец и админ могут
+    редактировать карточку товара, связ один ко многим
+    :Дата: заполняется автоматически присоздании товара, необходима для
+    формирования списка новинок за неделю
+    :счетчик: счетчик просмотров, поумолчанию = 0
     """
     name = models.CharField(verbose_name="Название", max_length=250)
     discription = models.TextField(verbose_name="Описание товара")
@@ -81,7 +118,14 @@ class Product(models.Model):
 
 class Profile(models.Model):
     """
-    Профиль пользователя
+    ============================
+    Модель Профиль пользователя.
+    ============================
+    Расширяет стандартную модель User,
+    добавляя дату рождения и возраст. Возрст не может быть меньше 18 лет.
+
+    :дата рождения: поле может быть не заполнено
+    :возраст: поле может быть не заполненоcd
     """
     username = models.OneToOneField(
         User,
@@ -97,11 +141,23 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
+    """
+    по сигналу о сохрании нового пользователя автоматически добавляет
+    его в группу common users
+    """
     if created:
         instance.groups.add(Group.objects.get(name='common users'))
 
 
 def send_msg_to_new_user(sender, instance, created, **kwargs):
+    """
+    Формирует приветственное сообщение новому пользователю и отправляет
+    его по сигналу о создании нового пользователя
+    :param sender: принимает модель User, и извлекает из нее имя пользователя
+    и его email
+    формирует письмо с помощью метода render_to_string() из html шаблона и
+    пременной data в которую помещает имя пользователя
+    """
     if created:
         email = User.email
         data = {
@@ -125,7 +181,14 @@ post_save.connect(send_msg_to_new_user, sender=User)
 
 class Subscriber(models.Model):
     """
-    Подписка на новинки
+    ==================
+    Модель Подпискчик.
+    ==================
+    Используется для отправки новинок недели
+    подписавшимся пользователям. Подписаться может только зарегистрированный
+    пользователь, email для рассылки береться из модели User
+
+    :Имя пользователя: используется модель User, связь один ко многим
     """
     username = models.ForeignKey(User, on_delete=models.CASCADE)
 
