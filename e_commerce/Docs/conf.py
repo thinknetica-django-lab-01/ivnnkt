@@ -12,10 +12,10 @@
 #
 import os
 import sys
+sys.path.insert(0, os.path.abspath('..'))
+os.environ['DJANGO_SETTINGS_MODULE'] = 'e_commerce.settings'
 import django
-sys.path.insert(0, os.path.abspath('../..'))
-from django.conf import settings
-settings.configure()
+django.setup()
 
 
 # -- Project information -----------------------------------------------------
@@ -34,6 +34,9 @@ release = '1.0'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.githubpages',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
