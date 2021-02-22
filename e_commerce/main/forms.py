@@ -22,7 +22,7 @@ class ProfileForm(ModelForm):
             raise ValidationError('Вам должно быть больше чем 18 лет')
 
         return data
-      
+
     def save(self, *args, **kwargs):
         super(ProfileForm, self).save(*args, **kwargs)
         self.instance.username.first_name = self.cleaned_data.get('first_name')

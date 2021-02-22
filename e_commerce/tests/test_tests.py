@@ -1,7 +1,10 @@
 from django.test import TestCase, RequestFactory
 from main.models import Product, Seller, Tag, Category
 from django.contrib.auth.models import User, Group
-from main.views import ProductListView, ProductDetailView, ProductCreateView, ProductUpdate
+from main.views import ProductListView,\
+    ProductDetailView,\
+    ProductCreateView,\
+    ProductUpdate
 
 
 class ProductViewTest(TestCase):
