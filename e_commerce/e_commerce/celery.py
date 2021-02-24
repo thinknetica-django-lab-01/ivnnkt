@@ -11,14 +11,17 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.autodiscover_tasks()
 
-# реализовал в 7.3 выполнение таск по расписанию
 app.conf.beat_schedule = {
     'send-new-products-every-week': {
         'task': 'main.tasks.send_mailing',
-        'schedule': crontab(minute=0,
-hour=17, day_of_week='fri'),
+        'schedule': crontab(
+            minute=0,
+            hour=17,
+            day_of_week='fri'
+        ),
     },
 }
+
 
 @app.task(bind=True)
 def debug_task(self):

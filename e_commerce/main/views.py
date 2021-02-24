@@ -1,13 +1,13 @@
 from django.shortcuts import render
-from .models import Product, Profile, Subscriber, User
+from .models import Product, Profile, Subscriber
 from django.views import generic
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import ProfileForm, ProductForm, SubscribForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
+# from django.utils.decorators import method_decorator
+# from django.views.decorators.cache import cache_page
 
 
 def index(request):
@@ -27,7 +27,9 @@ def index(request):
 
 # @method_decorator(cache_page(60 * 5), name='dispatch')
 class ProductListView(generic.ListView):
-    '''полный список товаров'''
+    """
+    полный список товаров
+    """
     model = Product
     form_class = SubscribForm
     success_url = '/goods'
@@ -58,9 +60,10 @@ class ProductListView(generic.ListView):
         return HttpResponseRedirect('/')
 
 
-
 class ProductDetailView(generic.DetailView):
-    '''страничка товара'''
+    """
+    страничка товара
+    """
     model = Product
 
     def get(self, request, *args, **kwargs):
@@ -72,7 +75,9 @@ class ProductDetailView(generic.DetailView):
 
 
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
-    '''Форма редактирования пользователя'''
+    """
+    Форма редактирования пользователя
+    """
     model = Profile
     form_class = ProfileForm
     template_name = 'main/profile_form.html'
@@ -83,7 +88,9 @@ class ProductCreateView(
     UserPassesTestMixin,
     generic.CreateView
 ):
-    '''станица добавления товара'''
+    """
+    станица добавления товара
+    """
     model = Product
     form_class = ProductForm
 
@@ -100,7 +107,9 @@ class ProductUpdate(
     UserPassesTestMixin,
     generic.UpdateView
 ):
-    '''станица редактирования товара'''
+    """
+    станица редактирования товара
+    """
     model = Product
     form_class = ProductForm
     template_name_suffix = '_edit'
