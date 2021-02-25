@@ -11,6 +11,9 @@ from django.http import HttpResponseRedirect
 
 
 def index(request):
+    """Главная страница. Выводится список товаров,
+    цена если turn_on_block = True, и пример работы фильтра revers_string.
+    """
     prod = Product.objects.all()
     turn_on_block = True
 
@@ -27,9 +30,7 @@ def index(request):
 
 # @method_decorator(cache_page(60 * 5), name='dispatch')
 class ProductListView(generic.ListView):
-    """
-    полный список товаров
-    """
+    """Полный список товаров."""
     model = Product
     form_class = SubscribForm
     success_url = '/goods'
@@ -61,9 +62,7 @@ class ProductListView(generic.ListView):
 
 
 class ProductDetailView(generic.DetailView):
-    """
-    страничка товара
-    """
+    """Страничка товара."""
     model = Product
 
     def get(self, request, *args, **kwargs):
@@ -75,9 +74,7 @@ class ProductDetailView(generic.DetailView):
 
 
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
-    """
-    Форма редактирования пользователя
-    """
+    """Форма редактирования пользователя."""
     model = Profile
     form_class = ProfileForm
     template_name = 'main/profile_form.html'
@@ -88,9 +85,7 @@ class ProductCreateView(
     UserPassesTestMixin,
     generic.CreateView
 ):
-    """
-    станица добавления товара
-    """
+    """Станица добавления товара."""
     model = Product
     form_class = ProductForm
 
@@ -107,14 +102,12 @@ class ProductUpdate(
     UserPassesTestMixin,
     generic.UpdateView
 ):
-    """
-    станица редактирования товара
-    """
+    """Станица редактирования товара."""
     model = Product
     form_class = ProductForm
     template_name_suffix = '_edit'
     success_url = reverse_lazy('goods')
 
-    def test_func(self, *args, **kwargs):
+    def test_func(self, *args, **kwargs) -> True:
         obj = super(UpdateView, self).get_object()
         return self.request.user == obj.owner
