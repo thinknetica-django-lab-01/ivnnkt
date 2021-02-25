@@ -6,8 +6,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-# import datetime
-# from apscheduler.schedulers.background import BackgroundScheduler
+
 
 
 class NewFlatpage(models.Model):
@@ -24,7 +23,7 @@ class NewFlatpage(models.Model):
 
 
 class Seller(models.Model):
-    """Модель Продавец. Название магазина прдоставляющего товар.
+    """Модель Продавец - название магазина предоставляющего товар.
 
     Название -- поле CharField, максимальной длинной 250 символов.
     """
@@ -35,7 +34,8 @@ class Seller(models.Model):
 
 
 class Category(models.Model):
-    """Модель Категории товаров. Например Элетроника, спорттовары,
+    """Модель Категории товаров - служит для отнесения товаров к
+    определенной категории, например элетроника, спорттовары,
     товары для дома и т.д.
 
     Название -- поле CharField, максимальной длинной 250 символов.
@@ -49,7 +49,7 @@ class Category(models.Model):
 
 
 class Tag(models.Model):
-    """Модель Тэг.Тэги для удобного поиска товаров.
+    """Модель Тэг - тэги для удобного поиска товаров.
 
     Название -- поле CharField, максимальной длинной 50 символов,
     может быть не заполнено.
@@ -61,7 +61,7 @@ class Tag(models.Model):
 
 
 class Product(models.Model):
-    """Модель Товар.Товары представленные в магазине.
+    """Модель Товар - товары представленные в магазине.
 
     Название -- поле CharField, максимальной длинной 250 символов.
     Описание -- поле TextField, содержит описание товара.
@@ -101,7 +101,7 @@ class Product(models.Model):
 
 
 class Profile(models.Model):
-    """Модель Профиль пользователя.Расширяет стандартную модель User,
+    """Модель Профиль пользователя - асширяет стандартную модель User,
     добавляя дату рождения и возраст. Возрст не может быть меньше 18 лет.
 
     Дата рождения -- поле может быть не заполнено.
@@ -159,7 +159,7 @@ post_save.connect(send_msg_to_new_user, sender=User)
 
 
 class Subscriber(models.Model):
-    """Модель Подпискчик. Используется для отправки новинок недели
+    """Модель Подпискчик и используется для отправки новинок недели
     подписавшимся пользователям. Подписаться может только зарегистрированный
     пользователь, email для рассылки береться из модели User.
 
