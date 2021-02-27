@@ -21,11 +21,19 @@ class FlatPageNewAdmin(FlatPageAdmin):
     search_fields = ('url', 'title')
 
 
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    """Товары"""
+
+    list_display = ('id', 'name', 'seller', 'owner',)
+    list_display_links = ('name',)
+    list_filter = ('seller', 'date', 'tag')
+
+
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, FlatPageNewAdmin)
 admin.site.register(Seller)
 admin.site.register(Category)
 admin.site.register(Tag)
-admin.site.register(Product)
 admin.site.register(Profile)
 admin.site.register(Subscriber)
