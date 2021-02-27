@@ -7,7 +7,5 @@ class Command(BaseCommand):
     help = "Создание случайного пользователя"
 
     def handle(self, *args, **kwargs):
-        # total = kwargs['total']
-        # for i in range(total):
         name = get_random_string()
         User.objects.create_user(username=name, email=name + '@mail.net', password='pass1234')
