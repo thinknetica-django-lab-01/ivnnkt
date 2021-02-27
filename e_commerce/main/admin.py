@@ -21,13 +21,23 @@ class FlatPageNewAdmin(FlatPageAdmin):
     search_fields = ('url', 'title')
 
 
+def complete_product(ModelAdmin, reguest, queryset):
+    queryset.update(published=True)
+complete_product.short_description = 'Опубликовать товары'
+
+def archive_product(ModelAdmin, reguest, queryset):
+    queryset.update(published=False)
+archive_product.short_description = 'Архивировать товары'
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     """Товары"""
 
-    list_display = ('id', 'name', 'seller', 'owner',)
+    list_display = ('id', 'name', 'seller', 'owner', 'published',)
     list_display_links = ('name',)
     list_filter = ('seller', 'date', 'tag')
+    actions = [complete_product, archive_product,]
 
 
 admin.site.unregister(FlatPage)
