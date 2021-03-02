@@ -48,3 +48,4 @@ virtualenv
 *.prefs
 *.mo
 /.stfolder
+dump.rdb

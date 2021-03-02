@@ -95,6 +95,10 @@ class Product(models.Model):
         verbose_name="Количество просмотров",
         default=0
     )
+    published = models.BooleanField(
+        default=False,
+        verbose_name='Опубликован'
+    )
 
     def __str__(self):
         return self.name

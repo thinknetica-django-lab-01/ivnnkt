@@ -129,7 +129,7 @@ USE_TZ = True
 # настройки для отправки Email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# директории для статики созданы и добавленны в gitignor
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
