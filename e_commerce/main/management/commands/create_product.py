@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from main.models import Product, Seller, Tag, Category
+from main.models import Product, Seller, Category
 from django.core.management.base import BaseCommand
 from django.utils.crypto import get_random_string
 from random import randint
@@ -9,8 +9,7 @@ class Command(BaseCommand):
     help = "Создание товара и юзера(владельца товара)"
 
     def handle(self, *args, **kwargs):
-        name = get_random_string()
-        user = User.objects.create_user(username=name, email=name + '@mail.net', password='pass1234')
+        user = User.objects.get(username='admin')
 
         seller = Seller.objects.create(name='test_seller')
         category = Category.objects.create(
