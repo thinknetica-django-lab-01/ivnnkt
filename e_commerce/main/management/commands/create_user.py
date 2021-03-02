@@ -8,4 +8,4 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         name = get_random_string()
-        User.objects.create_user(username=name, email=name + '@mail.net', password='pass1234')
+        User.objects.create_user(username=name, email=f'{name}@mail.net', password='pass1234')
