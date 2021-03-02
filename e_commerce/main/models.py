@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.contrib.postgres.fields import ArrayField
 
 
 
@@ -48,18 +49,6 @@ class Category(models.Model):
         return self.name
 
 
-class Tag(models.Model):
-    """Модель Тэг - тэги для удобного поиска товаров.
-
-    Название -- поле CharField, максимальной длинной 50 символов,
-    может быть не заполнено.
-    """
-    name = models.CharField(verbose_name="#Тэг", max_length=50, blank=True)
-
-    def __str__(self):
-        return self.name
-
-
 class Product(models.Model):
     """Модель Товар - товары представленные в магазине.
 
@@ -88,7 +77,7 @@ class Product(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
-    tag = models.ManyToManyField(Tag)
+    tag = ArrayField(models.CharField(max_length=200), blank=True, null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     counter = models.IntegerField(

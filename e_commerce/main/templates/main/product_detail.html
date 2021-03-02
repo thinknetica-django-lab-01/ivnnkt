@@ -1,5 +1,4 @@
 {% extends 'main/base.html' %}
-{% load cache %}
 
 {% block content %}
   <h1>{{ product.name }}</h1>
@@ -9,11 +8,11 @@
   <p><strong>Категория товара</strong> {{ product.category }}</p>
   <p><strong>В наличии:</strong> {{ product.in_stock }}</p>
   <p><strong>Цена</strong> {{ product.price }} у.е.</p>
-  <p><strong>Тэги</strong> {% for tags in product.tag.all %} {{ tags.name }} {% endfor %} </p>
-{% cache 60 count %}
+  <p><strong>Тэги</strong> {% for tags in product.tag %} {{ tags }} {% endfor %} </p>
   <p><strong>Количество просмотров</strong> {{ product.counter }} </p>
-{% endcache %}
+
 
   <a class="nav-link" href="{% url 'edit_product' pk=product.id %}">Редактировать продукт</a>
 
 {% endblock %}
+

@@ -39,7 +39,9 @@ class ProductListView(generic.ListView):
     def get_queryset(self):
         query = self.request.GET.get('tag')
         if query:
-            queryset = Product.objects.filter(tag__name=query)
+            query_list = []
+            query_list.append(query)
+            queryset = Product.objects.filter(tag__contains=query_list)
         else:
             queryset = Product.objects.all()
         return queryset
