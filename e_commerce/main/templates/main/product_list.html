@@ -19,10 +19,10 @@
 
 {% block tag %}
 {% for product in product_list %}
-    {% for tags in product.tag.all %}
+    {% for tags in product.tag %}
       <li class="nav-item">
-        <a class="nav-link" href="?tag={{ tags.name }}">
-            {{ tags.name }}
+        <a class="nav-link" href="?tag={{ tags }}">
+            {{ tags }}
         </a>
       </li>
     {% endfor %}
