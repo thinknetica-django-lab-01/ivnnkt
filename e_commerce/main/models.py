@@ -9,7 +9,6 @@ from django.template.loader import render_to_string
 from django.contrib.postgres.fields import ArrayField
 
 
-
 class NewFlatpage(models.Model):
     """Создание плоских страниц из админки."""
     flatpage = models.OneToOneField(FlatPage, on_delete=models.CASCADE)
@@ -162,6 +161,14 @@ class Subscriber(models.Model):
 
     def __str__(self):
         return self.username.username
+
+
+class UserProduct(models.Model):
+    product = models.CharField(max_length=250)
+    user = models.CharField(max_length=250)
+
+    class Meta:
+        managed = False
 
 
 # def send_new_product(sender, instance, created, **kwargs):
