@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
+
     'main.apps.MainConfig',
     'ckeditor',
     'ckeditor_uploader',
@@ -58,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+
+    'e_commerce.middlewares.MobileAgentMiddleware',
 ]
 
 ROOT_URLCONF = 'e_commerce.urls'
@@ -165,7 +168,7 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 # регистрации
 ACCOUNT_SIGNUP_REDIRECT_URL = '/'
 
-# настройки кеша для редис были добавленны при устаноке и настройке redis
+# настройки кеша для редис
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
