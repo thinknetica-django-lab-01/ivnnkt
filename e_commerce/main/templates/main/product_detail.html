@@ -1,5 +1,13 @@
 {% extends 'main/base.html' %}
 
+{% block description %}
+{{ product.name }}, {{ product.discription }}
+{% endblock %}
+
+{% block title %}
+{{ product.name }}
+{% endblock %}
+
 {% block content %}
   <h1>{{ product.name }}</h1>
 
