@@ -97,6 +97,7 @@ class ProductCreateView(
     """Станица добавления товара."""
     model = Product
     form_class = ProductForm
+    success_url = reverse_lazy('goods')
 
     def test_func(self):
         return self.request.user.groups.filter(name='sellers')
