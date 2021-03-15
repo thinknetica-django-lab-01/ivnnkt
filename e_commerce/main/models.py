@@ -113,11 +113,12 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
-    """По сигналу о сохрании нового пользователя автоматически добавляет
-    его в группу common users.
+    """По сигналу о сохрании нового пользователя автоматически создает
+    профаил пользователя и добавляет его в группу common users.
     """
     if created:
         instance.groups.add(Group.objects.get(name='common users'))
+        Profile.objects.get_or_create(username=instance)
 
 
 def send_msg_to_new_user(sender, instance, created, **kwargs):

@@ -7,8 +7,8 @@ class MobileAgentMiddleware:
 
         if 'Mobile' in user_agent:
             print ('пользователь использует мобильный для просмотра страницы')
-        else:
-            print ('пользователь использует компьютер для просмотра страницы')
+        # else:
+        #     print ('пользователь использует компьютер для просмотра страницы')
 
         response = self.get_response(request)
 

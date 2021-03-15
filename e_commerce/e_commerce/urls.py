@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.contrib.sitemaps.views import sitemap
+from main.sitemap import ProductSitemap
+from django.views.generic.base import TemplateView
 
+sitemaps = {
+    'product': ProductSitemap,
+}
 
 urlpatterns = [
     path('', include('main.urls')),
@@ -23,4 +29,12 @@ urlpatterns = [
     path('pages/', include('django.contrib.flatpages.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('account/', include('allauth.urls'), name="login"),
+    path('sitemap.xml/', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap'),
+    path("robots.txt/",
+         TemplateView.as_view(
+             template_name="robots.txt",
+             content_type="text/plain"
+         ),
+         ),
 ]
