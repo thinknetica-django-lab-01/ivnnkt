@@ -6,8 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import ProfileForm, ProductForm, SubscribForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-# from django.utils.decorators import method_decorator
-# from django.views.decorators.cache import cache_page
+from django.contrib.postgres.search import SearchVector, SearchQuery
 
 
 def index(request):
@@ -28,7 +27,6 @@ def index(request):
     )
 
 
-# @method_decorator(cache_page(60 * 5), name='dispatch')
 class ProductListView(generic.ListView):
     """Полный список товаров."""
     model = Product
@@ -38,7 +36,12 @@ class ProductListView(generic.ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('tag')
-        if query:
+        search_query = self.request.GET.get('search')
+        if search_query:
+            queryset = Product.objects.annotate(
+                search=SearchVector('name', 'discription')
+            ).filter(search=SearchQuery(search_query))
+        elif query:
             query_list = []
             query_list.append(query)
             queryset = Product.objects.filter(tag__contains=query_list)
@@ -48,9 +51,13 @@ class ProductListView(generic.ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        x = self.request.GET.get('tag')
-        if x:
-            context['tags'] = ''.join(["tag={}&".format(x)])
+        tag = self.request.GET.get('tag')
+        search = self.request.GET.get('search')
+        if tag:
+            context['tags'] = ''.join(["tag={}&".format(tag)])
+            return context
+        elif search:
+            context['search'] = ''.join(["search={}&".format(search)])
             return context
         else:
             return context
